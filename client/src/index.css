@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+
+/* Colours sampled from the Figma frames */
+@theme {
+  --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand: #4566ec;
+  --color-brand-dark: #24389c;
+  --color-brand-50: #eef1fd;
+  --color-brand-100: #dce1fb;
+  --color-danger: #e5484d;
+  --color-danger-50: #fdecec;
+  --color-ink: #1d1d1f;
+  --color-muted: #8e8e93;
+  --color-line: #e8e8ee;
+
+  --animate-sheet: sheet-up 0.25s ease-out;
+  --animate-fade: fade-in 0.2s ease-out;
+  --animate-toast: toast-in 0.2s ease-out;
+
+  @keyframes sheet-up {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes toast-in {
+    from { opacity: 0; transform: translate(-50%, 8px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+  button {
+    cursor: pointer;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
