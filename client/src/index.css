@@ -1,18 +1,28 @@
 @import 'tailwindcss';
 
-/* Colours sampled from the Figma frames */
+/* Colours measured from the 2x Figma exports in client/design/ */
 @theme {
   --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif;
 
   --color-brand: #4566ec;
-  --color-brand-dark: #24389c;
-  --color-brand-50: #eef1fd;
-  --color-brand-100: #dce1fb;
+  --color-brand-dark: #253c98; /* progress fill */
+  --color-brand-50: #eff2ff; /* Task Complete card */
+  --color-brand-100: #dadaff; /* progress track */
+  --color-brand-deco: #5677ff; /* onboarding ring and zigzags */
+  --color-done-icon: #99adff;
+  --color-done-icon-ink: #1c3082;
   --color-danger: #e5484d;
-  --color-danger-50: #fdecec;
-  --color-ink: #1d1d1f;
-  --color-muted: #8e8e93;
-  --color-line: #e8e8ee;
+  --color-danger-50: #ffe6e7; /* Task Pending card */
+  --color-pending-icon: #ffb1b5;
+  --color-pending-icon-ink: #b2282d;
+  --color-ink: #090e23;
+  --color-label: #717171; /* form labels, onboarding subtitle */
+  --color-hint: #666666; /* search placeholder */
+  --color-caption: #6e7180; /* "This Week" */
+  --color-muted: #c0c0c0; /* day strip, row icons */
+  --color-line: #eaeaea; /* inputs, dividers */
+  --color-field: #e6e6e6; /* search box border */
+  --color-page: #fdfdff; /* home background */
 
   --animate-sheet: sheet-up 0.25s ease-out;
   --animate-fade: fade-in 0.2s ease-out;
@@ -33,11 +43,14 @@
 }
 
 @layer base {
+  :root {
+    --row-bg: var(--color-page); /* task rows need an opaque background to slide over the Delete button */
+  }
   html {
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-white font-sans text-ink antialiased;
+    @apply bg-page font-sans text-ink antialiased;
   }
   button {
     cursor: pointer;

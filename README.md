@@ -7,7 +7,7 @@ Built with the MERN stack for the SDE-1 assignment, following the provided Figma
 | | |
 | --- | --- |
 | **Live app** | _add Netlify URL_ |
-| **API** | _add Render URL_ (health check: `/api/health`) |
+| **API** | https://todo-hglt.onrender.com/api (health check: [`/api/health`](https://todo-hglt.onrender.com/api/health)) |
 
 > The API runs on Render's free tier, which sleeps when idle. The first request after a while can take up to a minute.
 

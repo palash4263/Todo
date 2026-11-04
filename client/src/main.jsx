@@ -13,6 +13,9 @@ const queryClient = new QueryClient({
   },
 });
 
+// Figma comparison overlay (?overlay=home); stripped from production builds.
+if (import.meta.env.DEV) import('./dev/DesignOverlay').then((m) => m.mount());
+
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>

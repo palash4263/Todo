@@ -17,7 +17,7 @@ export function ToastProvider({ children }) {
   return (
     <ToastContext.Provider value={show}>
       {children}
-      <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-28 z-50">
+      <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-[116px] z-50">
         {toast && (
           <div
             key={toast.id}

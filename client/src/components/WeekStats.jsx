@@ -2,22 +2,25 @@ import { SquareCheck, SquareX } from 'lucide-react';
 
 const pad = (n) => String(n).padStart(2, '0');
 
+const TONES = {
+  done: { card: 'bg-brand-50', icon: 'bg-done-icon text-done-icon-ink' },
+  pending: { card: 'bg-danger-50', icon: 'bg-pending-icon text-pending-icon-ink' },
+};
+
+// 162×96 card: 28px icon 15px/16px in, label beside it, count on the next line aligned with the label.
 function StatCard({ icon: Icon, label, value, tone, caption }) {
-  const styles = {
-    done: { card: 'bg-brand-50', icon: 'bg-brand/70 text-white' },
-    pending: { card: 'bg-danger-50', icon: 'bg-danger/15 text-danger' },
-  }[tone];
+  const t = TONES[tone];
   return (
-    <div className={`rounded-[3px] px-3 py-3.5 ${styles.card}`}>
-      <div className="flex items-center gap-2">
-        <span className={`grid size-6 place-items-center rounded-[3px] ${styles.icon}`}>
-          <Icon aria-hidden className="size-4" strokeWidth={1.75} />
+    <div className={`h-24 pt-4 pl-[15px] ${t.card}`}>
+      <div className="flex items-center">
+        <span className={`grid size-7 place-items-center ${t.icon}`}>
+          <Icon aria-hidden size={24} strokeWidth={2} />
         </span>
-        <span className="text-[11px]">{label}</span>
+        <span className="ml-[11px] text-xs leading-4">{label}</span>
       </div>
-      <p className="mt-1.5 pl-8">
-        <span className="text-lg font-semibold tabular-nums">{value === null ? '--' : pad(value)}</span>
-        <span className="ml-1.5 text-[9px] text-muted">{caption}</span>
+      <p className="mt-[5px] flex items-baseline pl-[39px]">
+        <span className="text-[22px] leading-7 font-semibold tabular-nums">{value === null ? '--' : pad(value)}</span>
+        <span className="ml-[4.5px] text-[10px] text-caption">{caption}</span>
       </p>
     </div>
   );
@@ -30,30 +33,23 @@ export default function WeekStats({ completed, pending, loading, caption }) {
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-3">
+      <div className="mt-[30px] grid grid-cols-2 gap-[17px]">
         <StatCard icon={SquareCheck} tone="done" label="Task Complete" value={loading ? null : completed} caption={caption} />
         <StatCard icon={SquareX} tone="pending" label="Task Pending" value={loading ? null : pending} caption={caption} />
       </div>
 
-      <section className="mt-7" aria-labelledby="progress-title">
-        <div className="mb-3 flex items-baseline justify-between">
-          <h2 id="progress-title" className="text-[15px] font-medium">
-            Weekly Progress
-          </h2>
-          {!loading && total > 0 && (
-            <span className="text-[11px] text-muted">
-              {completed} of {total} done
-            </span>
-          )}
-        </div>
+      <section className="mt-[31px]" aria-labelledby="progress-title">
+        <h2 id="progress-title" className="text-lg leading-6 font-semibold text-black">
+          Weekly Progress
+        </h2>
         <div
           role="progressbar"
           aria-labelledby="progress-title"
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={pct}
-          aria-valuetext={`${pct}% of this week's tasks completed`}
-          className="h-4.5 overflow-hidden bg-brand-100"
+          aria-valuetext={`${completed} of ${total} tasks completed`}
+          className="relative -left-px mt-4 h-6 overflow-hidden bg-brand-100"
         >
           <div className="h-full bg-brand-dark transition-[width] duration-500" style={{ width: `${pct}%` }} />
         </div>

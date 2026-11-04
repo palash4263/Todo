@@ -17,8 +17,9 @@ export const combine = (ymd, hm) => new Date(`${ymd}T${hm}`);
 export const formatTime = (date) => format(date, 'h:mm a');
 export const formatHm = (hm) => formatTime(combine('2000-01-01', hm));
 
+// "Friday 14, January", as in the Figma
 export function formatLongDate(date) {
-  return format(date, isSameYear(date, new Date()) ? 'EEEE, d MMMM' : 'EEEE, d MMMM yyyy');
+  return format(date, isSameYear(date, new Date()) ? 'EEEE d, MMMM' : 'EEEE d, MMMM yyyy');
 }
 
 export function formatShortDate(date) {

@@ -32,6 +32,26 @@ Every task row can be completed with its checkbox, opened (tap) to view or edit,
 - `src/hooks/useTasks.js`: queries and mutations. Status changes and deletes update the screen immediately and roll back if the API rejects them; every change refreshes the week counts.
 - `src/context/`: the shared task sheet and toasts.
 
+## Matching the Figma
+
+The Figma frames are exported at 2x into `design/` (390 × 844 each). Colours, sizes and spacing in the code were measured from those exports, and most elements land within 1px of the design.
+
+To compare yourself, run `npm run dev`, open the app in a 390px-wide window and add `?overlay=` with `onboarding`, `home`, `new-task` or `search` (for example `http://localhost:5173/?overlay=home`). The export is laid over the page:
+
+- **O** shows or hides it
+- **[** and **]** change its opacity
+- **D** switches to difference mode, where matching pixels turn black
+
+The overlay only exists in development builds; it is not part of what Netlify serves.
+
+Intentional differences from the Figma:
+
+- The day strip shows Monday to Sunday (7 days), because the assignment defines weeks that way. The Figma shows Sunday to Sunday (8 days).
+- The task form has a **Priority** field, which the assignment requires. It sits between Set Date and Description, so those two move down by 90px.
+- **All Weeks** cards below the task list, also required by the assignment, use the same colours and type.
+- On the Search screen, phones show title-only rows as in the Figma; delete by swiping left, or tap to open. Wider screens also show the bin and edit icons.
+- Swipe the day strip to change week. **Back to this week** appears only when you're viewing another week.
+
 ## Deploy to Netlify
 
 `netlify.toml` in the repo root already sets the base directory (`client`), build command, publish directory and the SPA redirect.

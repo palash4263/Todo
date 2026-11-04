@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { ArrowLeft, Search as SearchIcon, X } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
+import SearchBox from '../components/SearchBox';
 import TaskItem from '../components/TaskItem';
 import { EmptyState, ErrorState, ListSkeleton } from '../components/States';
 import { useSearchTasks } from '../hooks/useTasks';
@@ -30,13 +31,13 @@ export default function Search() {
   const back = () => (window.history.state?.idx > 0 ? navigate(-1) : navigate('/', { replace: true }));
 
   return (
-    <main className="mx-auto max-w-md px-4 pt-5 pb-16 sm:px-5 lg:max-w-2xl lg:pt-10">
-      <button type="button" onClick={back} aria-label="Back" className="-ml-2 grid size-10 place-items-center rounded-full hover:bg-brand-50">
-        <ArrowLeft className="size-5" strokeWidth={1.75} />
+    <main className="mx-auto min-h-dvh max-w-md bg-white px-6 pt-[31px] pb-16 [--row-bg:#fff] lg:max-w-2xl">
+      <button type="button" onClick={back} aria-label="Back" className="relative block text-black before:absolute before:-inset-2 before:content-['']">
+        <ArrowLeft size={24} strokeWidth={2} />
       </button>
 
-      <form role="search" onSubmit={(e) => e.preventDefault()} className="mt-3 mb-5">
-        <div className="flex h-11 items-center gap-2 rounded-[3px] border border-line px-3.5 transition-colors focus-within:border-brand">
+      <form role="search" onSubmit={(e) => e.preventDefault()} className="mt-[29px]">
+        <SearchBox as="label" className="cursor-text transition-colors focus-within:border-brand">
           <input
             type="search"
             autoFocus
@@ -45,34 +46,30 @@ export default function Search() {
             placeholder="Search by title or description"
             aria-label="Search tasks"
             maxLength={100}
-            className="min-w-0 flex-1 bg-transparent text-[13px] outline-none placeholder:text-[11px] placeholder:text-ink/60 [&::-webkit-search-cancel-button]:hidden"
+            className="min-w-0 flex-1 bg-transparent text-xs text-hint outline-none placeholder:text-hint [&::-webkit-search-cancel-button]:hidden"
           />
-          {text && (
-            <button type="button" onClick={() => setText('')} aria-label="Clear search" className="grid size-6 place-items-center rounded-full text-muted hover:bg-line">
-              <X className="size-3.5" />
-            </button>
-          )}
-          <SearchIcon aria-hidden className="size-4 shrink-0" />
-        </div>
+        </SearchBox>
       </form>
 
-      <div aria-live="polite">
+      <div aria-live="polite" className="mt-[22px]">
         {!q ? (
-          <p className="px-1 text-[12px] text-muted">Type a keyword to find tasks by title or description.</p>
+          <p className="pt-4 text-xs text-label">Type a keyword to find tasks by title or description.</p>
         ) : isPending ? (
           <ListSkeleton />
         ) : isError ? (
           <ErrorState error={error} onRetry={refetch} />
         ) : results.length === 0 ? (
-          <EmptyState title={`No tasks match "${q}"`} hint="Try a different word." />
+          <div className="pt-4">
+            <EmptyState title={`No tasks match "${q}"`} hint="Try a different word." />
+          </div>
         ) : (
           <>
-            <p className="mb-1 px-1 text-[11px] text-muted">
+            <p className="sr-only">
               {results.length} {results.length === 1 ? 'result' : 'results'}
             </p>
             <ul className={isPlaceholderData ? 'opacity-60' : ''}>
               {results.map((t) => (
-                <TaskItem key={t.id} task={t} showDate />
+                <TaskItem key={t.id} task={t} actionsFromMd />
               ))}
             </ul>
           </>

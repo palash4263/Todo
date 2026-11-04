@@ -4,9 +4,9 @@ export function ListSkeleton({ rows = 3 }) {
   return (
     <ul aria-label="Loading" className="animate-pulse">
       {Array.from({ length: rows }, (_, i) => (
-        <li key={i} className="flex items-center gap-3 border-b border-line py-4 last:border-b-0">
-          <span className="size-4.5 rounded-xs bg-line" />
-          <span className="h-3 flex-1 rounded bg-line" style={{ maxWidth: `${60 - i * 10}%` }} />
+        <li key={i} className="relative flex h-16 items-center pt-0.5 after:absolute after:right-0 after:bottom-0 after:left-8 after:h-px after:bg-line">
+          <span className="size-5 bg-line" />
+          <span className="ml-3 h-3 flex-1 bg-line" style={{ maxWidth: `${60 - i * 10}%` }} />
         </li>
       ))}
     </ul>
@@ -15,16 +15,16 @@ export function ListSkeleton({ rows = 3 }) {
 
 export function EmptyState({ title, hint }) {
   return (
-    <div className="rounded-[3px] border border-dashed border-line px-4 py-8 text-center">
-      <p className="text-[13px] text-ink">{title}</p>
-      {hint && <p className="mt-1 text-[11px] text-muted">{hint}</p>}
+    <div className="border border-dashed border-line px-4 py-8 text-center">
+      <p className="text-sm font-medium text-ink">{title}</p>
+      {hint && <p className="mt-1 text-xs text-label">{hint}</p>}
     </div>
   );
 }
 
 export function ErrorState({ error, onRetry }) {
   return (
-    <div role="alert" className="flex items-center gap-3 rounded-[3px] bg-danger-50 px-4 py-3 text-[13px] text-danger">
+    <div role="alert" className="flex items-center gap-3 bg-danger-50 px-4 py-3 text-[13px] text-pending-icon-ink">
       <CircleAlert aria-hidden className="size-4 shrink-0" />
       <span className="flex-1">{error?.message ?? 'Something went wrong'}</span>
       {onRetry && (
