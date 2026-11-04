@@ -6,6 +6,12 @@ const app = createApp();
 const validId = '6727f1a2b3c4d5e6f7a8b9c0';
 
 describe('validation and routing (no database)', () => {
+  test('GET /api lists the endpoints', async () => {
+    const res = await request(app).get('/api');
+    expect(res.status).toBe(200);
+    expect(res.body.endpoints).toContain('GET /api/health');
+  });
+
   test('GET /api/health responds', async () => {
     const res = await request(app).get('/api/health');
     expect(res.status).toBe(200);

@@ -28,6 +28,7 @@ All under `/api`. Tasks are returned with an `id` field (not `_id`). Dates are I
 
 | Method | Path | Body / query | Success |
 | --- | --- | --- | --- |
+| GET | `/` (i.e. `/api`) | | 200 list of endpoints |
 | GET | `/health` | | 200 `{ ok, db }` |
 | GET | `/tasks` | `?q=` search title + description · `?weekStart=YYYY-MM-DD` (a Monday) · `?status=in_progress\|completed` · `?tz=Asia/Kolkata` | 200 task[] sorted by `dueAt` |
 | GET | `/tasks/weeks` | `?tz=` · optional `?weekStart=` for one week | 200 `[{ weekStart, weekEnd, open, completed, total }]`, newest first (an object when `weekStart` is given) |

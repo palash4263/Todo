@@ -26,6 +26,21 @@ function createApp() {
     app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'));
   }
 
+  app.get('/api', (_req, res) => {
+    res.json({
+      name: 'To-Do API',
+      endpoints: [
+        'GET /api/health',
+        'GET /api/tasks?q=&weekStart=&status=&tz=',
+        'GET /api/tasks/weeks?tz=',
+        'GET /api/tasks/:id',
+        'POST /api/tasks',
+        'PATCH /api/tasks/:id',
+        'PATCH /api/tasks/:id/status',
+        'DELETE /api/tasks/:id',
+      ],
+    });
+  });
   app.get('/api/health', (_req, res) => {
     res.json({ ok: true, db: mongoose.connection.readyState === 1 ? 'connected' : 'disconnected' });
   });

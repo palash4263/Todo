@@ -75,7 +75,7 @@ netlify.toml     Netlify build settings for the client
 
 ## Testing
 
-- **Backend:** 29 automated tests cover create, edit and delete; search; week grouping, including the edges between Sunday and Monday and time-zone cases; status changes; and request validation.
+- **Backend:** 30 automated tests cover create, edit and delete; search; week grouping, including the edges between Sunday and Monday and time-zone cases; status changes; and request validation.
 - **Frontend:** tested by hand in the browser against the live API: create (including validation), edit, complete, swipe to delete, undo, search and week navigation, at phone and desktop widths.
 
 ## Known limitations
